@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/_Bad_Raccoon/_3D Music Visualizer Vu Meter/Scene_01_Microphone_A.unity
+- path: Assets/Scenes/MicPlayer.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

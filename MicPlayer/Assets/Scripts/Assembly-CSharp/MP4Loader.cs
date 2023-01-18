@@ -49,7 +49,7 @@ public class MP4Loader : MonoBehaviour
 	public void Play()
 	{
 		videoPlayer.Play();
-		audioSource.Play();
+	//	audioSource.Play();
 		rawImageDrawVideo.gameObject.SetActive(true);
 	}
 

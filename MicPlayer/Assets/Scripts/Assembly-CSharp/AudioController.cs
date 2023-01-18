@@ -16,6 +16,8 @@ public class AudioController : MonoBehaviour
 
 	public float highLightSpeed = 4f;
 
+	public float lerpTime = 0.8f;
+
 	[SerializeField]
 	private TMP_InputField audioChannelInput;
 
@@ -30,6 +32,9 @@ public class AudioController : MonoBehaviour
 
 	[SerializeField]
 	private TMP_InputField highLightSpeedInput;
+
+	[SerializeField]
+	private TMP_InputField lerpTimeInput;
 
 	private void Start()
 	{
@@ -52,6 +57,10 @@ public class AudioController : MonoBehaviour
 		highLightSpeedInput.onValueChanged.AddListener(delegate(string input)
 		{
 			SetHighLight(input);
+		});
+		lerpTimeInput.onValueChanged.AddListener(delegate (string input)
+		{
+			SetLerpTime(input);
 		});
 	}
 
@@ -80,15 +89,25 @@ public class AudioController : MonoBehaviour
 		highLightSpeed = float.Parse(input);
 	}
 
+	private void SetLerpTime(string input)
+	{
+		lerpTime = float.Parse(input);
+	}
+
+
+	private void ChageSpeed()
+	{
+		mp4Loader.videoPlayer.playbackSpeed = highLightSpeed;
+	}
 	private void Update()
 	{
 		if (Mp3Loader._freqBand[audioChannel] * threshold >= audioSensibility)
 		{
-			mp4Loader.videoPlayer.playbackSpeed = highLightSpeed;
+			ChageSpeed();
 		}
 		else
 		{
-			mp4Loader.videoPlayer.playbackSpeed = defaultSpeed;
+			mp4Loader.videoPlayer.playbackSpeed = Mathf.Lerp(mp4Loader.videoPlayer.playbackSpeed, defaultSpeed,lerpTime);
 		}
 	}
 }

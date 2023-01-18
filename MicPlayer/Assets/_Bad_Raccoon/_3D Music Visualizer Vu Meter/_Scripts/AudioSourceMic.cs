@@ -48,6 +48,8 @@ public class AudioSourceMic : MonoBehaviour
             {
                 selectedDevice = Microphone.devices[0].ToString();
                 _audiosource.clip = Microphone.Start(selectedDevice, true, 10, 44100);
+                _audiosource.loop = true;
+                while(!(Microphone.GetPosition(null)>0)){ }
                 _audiosource.Play();
             }
         }
