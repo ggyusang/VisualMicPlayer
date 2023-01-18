@@ -1,0 +1,10 @@
+
+=== Tue Jan 17 01:05:45 2023
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were added:
+  com.unity.ide.visualstudio@2.0.11
+The following packages were updated:
+  com.unity.textmeshpro from version 2.1.6 to 3.0.6
