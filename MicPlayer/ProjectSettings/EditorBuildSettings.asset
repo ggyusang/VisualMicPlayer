@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/IdleScene.unity
+    guid: 18244a55d63ff40918ab7bd956effd9b
+  - enabled: 1
     path: Assets/Scenes/MicPlayer.unity
-    guid: d169848a9c9e3844580f0fc4daf3ca31
+    guid: f35ac88622d4a70488c2bf7be5a472e4
+  - enabled: 1
+    path: Assets/Scenes/MusicPlayer.unity
+    guid: c9a29a4b52da6f04a88e57e4740d1faf
   m_configObjects: {}

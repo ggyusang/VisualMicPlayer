@@ -14,7 +14,7 @@ public class SpectrumKernel : MonoBehaviour {
 	// Init the arrays to the awake else this damn unity generate 
 	// object relation problem... Stupid shit, wasting my time...
 	void Awake () {
-		spects = new float[1024];
+		spects = new float[2048];
 	}
 
 	// Allow to check only one time the channels

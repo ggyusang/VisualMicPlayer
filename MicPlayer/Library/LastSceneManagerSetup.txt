@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/MicPlayer.unity
+- path: Assets/Scenes/IdleScene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

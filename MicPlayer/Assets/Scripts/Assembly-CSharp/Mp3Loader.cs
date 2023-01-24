@@ -27,6 +27,9 @@ public class Mp3Loader : MonoBehaviour
 	[SerializeField]
 	public AudioSource audioSource;
 
+	[SerializeField]
+	private AudioSource musicSource;
+
 	public AudioClip _audioClip;
 
 	public bool useMicrophone;
@@ -43,7 +46,7 @@ public class Mp3Loader : MonoBehaviour
 
 	private float[] _bufferDecrease = new float[8];
 
-	private void Awake()
+	private void Start()
 	{
 		if (useMicrophone && Microphone.devices.Length != 0)
 		{
@@ -54,6 +57,11 @@ public class Mp3Loader : MonoBehaviour
 		if (!useMicrophone)
 		{
 			audioSource.clip = _audioClip;
+		}
+
+		if (PlayerPrefs.HasKey($"{SceneMang.instance.currentScene}Mp3")&&SceneMang.instance.currentScene==SceneMang.Scene.MusicPlayer)
+		{
+			StartCoroutine(LoadAudio(PlayerPrefs.GetString($"{SceneMang.instance.currentScene}Mp3")));
 		}
 	}
 
@@ -103,6 +111,7 @@ public class Mp3Loader : MonoBehaviour
 
 	private IEnumerator LoadAudio(string fileName)
 	{
+		PlayerPrefs.SetString($"{SceneMang.instance.currentScene}Mp3", fileName);
 		fileName = "file://" + fileName;
 		UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip(fileName, AudioType.MPEG);
 		yield return request.SendWebRequest();
@@ -111,7 +120,7 @@ public class Mp3Loader : MonoBehaviour
 			Debug.Log("Load Success : " + fileName);
 			DownloadHandlerAudioClip.GetContent(request);
 			AudioClip clip = ((Application.platform != RuntimePlatform.WindowsEditor && Application.platform != RuntimePlatform.WindowsPlayer) ? DownloadHandlerAudioClip.GetContent(request) : NAudioPlayer.FromMp3Data(request.downloadHandler.data, fileName));
-			audioSource.clip = clip;
+			musicSource.clip = clip;
 			Play();
 		}
 		else
@@ -128,18 +137,18 @@ public class Mp3Loader : MonoBehaviour
 
 	public void Play()
 	{
-		audioSource.Play();
+		musicSource.Play();
 		StartCoroutine("OnPlaytimeUI");
 	}
 
 	public void Pause()
 	{
-		audioSource.Pause();
+		musicSource.Pause();
 	}
 
 	public void Stop()
 	{
-		audioSource.Stop();
+		musicSource.Stop();
 		StartCoroutine("OnPlaytimeUI");
 		ResetPlaytimeUI();
 	}
@@ -155,15 +164,15 @@ public class Mp3Loader : MonoBehaviour
 	{
 		while (true)
 		{
-			int num = (int)audioSource.time / 3600;
-			int num2 = (int)(audioSource.time % 3600f) / 60;
-			int num3 = (int)(audioSource.time % 3600f) % 60;
+			int num = (int)musicSource.time / 3600;
+			int num2 = (int)(musicSource.time % 3600f) / 60;
+			int num3 = (int)(musicSource.time % 3600f) % 60;
 			textCurrentPlaytime.text = string.Format("{0:D2}:{1:D2}:{2:D2}", num, num2, num3);
-			num = (int)audioSource.clip.length / 3600;
-			num2 = (int)(audioSource.clip.length % 3600f) / 60;
-			num3 = (int)(audioSource.clip.length % 3600f) % 60;
+			num = (int)musicSource.clip.length / 3600;
+			num2 = (int)(musicSource.clip.length % 3600f) / 60;
+			num3 = (int)(musicSource.clip.length % 3600f) % 60;
 			textMaxPlaytime.text = string.Format("{0:D2}:{1:D2}:{2:D2}", num, num2, num3);
-			sliderPlaybar.value = audioSource.time / audioSource.clip.length;
+			sliderPlaybar.value = musicSource.time / musicSource.clip.length;
 			yield return new WaitForSeconds(1f);
 		}
 	}
