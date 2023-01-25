@@ -12,7 +12,7 @@ public class IdleScene : MonoBehaviour
 
 	public float weight;
 
-	public float lerpTime;
+	public float downSpeed;
 
 	public Slider slider;
 
@@ -20,11 +20,12 @@ public class IdleScene : MonoBehaviour
 	private TMP_InputField thresholdInput;
 
 	[SerializeField]
-	private TMP_InputField lerpTimeInput;
+	private TMP_InputField downSpeedInput;
 
 	[SerializeField]
 	private TMP_InputField weightInput;
 
+	public float value;
 	public void Init()
 	{
 		if (PlayerPrefs.HasKey($"{SceneMang.instance.currentScene}threshold"))
@@ -34,9 +35,9 @@ public class IdleScene : MonoBehaviour
 		}
 		else
 		{
-			PlayerPrefs.SetInt($"{SceneMang.instance.currentScene}threshold", 0);
-			threshold = 0;
-			this.thresholdInput.text = 0.ToString();
+			PlayerPrefs.SetFloat($"{SceneMang.instance.currentScene}threshold", 0.001f);
+			threshold = 0.001f;
+			this.thresholdInput.text = 0.001f.ToString();
 		}
 
 
@@ -47,22 +48,22 @@ public class IdleScene : MonoBehaviour
 		}
 		else
 		{
-			PlayerPrefs.SetInt($"{SceneMang.instance.currentScene}weight", 0);
-			weight = 0;
-			this.weightInput.text = 0.ToString();
+			PlayerPrefs.SetFloat($"{SceneMang.instance.currentScene}weight", 4);
+			weight = 4;
+			this.weightInput.text = 4.ToString();
 		}
 
 
-		if (PlayerPrefs.HasKey($"{SceneMang.instance.currentScene}lerpTime"))
+		if (PlayerPrefs.HasKey($"{SceneMang.instance.currentScene}downSpeed"))
 		{
-			this.lerpTime = PlayerPrefs.GetFloat($"{SceneMang.instance.currentScene}lerpTime");
-			this.lerpTimeInput.text = PlayerPrefs.GetFloat($"{SceneMang.instance.currentScene}lerpTime").ToString();
+			this.downSpeed = PlayerPrefs.GetFloat($"{SceneMang.instance.currentScene}downSpeed");
+			this.downSpeedInput.text = PlayerPrefs.GetFloat($"{SceneMang.instance.currentScene}downSpeed").ToString();
 		}
 		else
 		{
-			PlayerPrefs.SetInt($"{SceneMang.instance.currentScene}lerpTime", 0);
-			lerpTime = 0;
-			this.lerpTimeInput.text = 0.ToString();
+			PlayerPrefs.SetFloat($"{SceneMang.instance.currentScene}downSpeed", 0.001f);
+			downSpeed = 0.001f;
+			this.downSpeedInput.text = 0.001.ToString();
 		}
 	}
 
@@ -74,7 +75,7 @@ public class IdleScene : MonoBehaviour
 		{
 			SetThres(input);
 		});
-		lerpTimeInput.onValueChanged.AddListener(delegate (string input)
+		downSpeedInput.onValueChanged.AddListener(delegate (string input)
 		{
 			SetLerpTime(input);
 		});
@@ -94,8 +95,8 @@ public class IdleScene : MonoBehaviour
 
 	private void SetLerpTime(string input)
 	{
-		PlayerPrefs.SetFloat($"{SceneMang.instance.currentScene}lerpTime", float.Parse(input));
-		lerpTime = float.Parse(input);
+		PlayerPrefs.SetFloat($"{SceneMang.instance.currentScene}downSpeed", float.Parse(input));
+		downSpeed = float.Parse(input);
 	}
 
 	private void SetNextThres(string input)
@@ -112,21 +113,25 @@ public class IdleScene : MonoBehaviour
 		{
 			ChangeColor();
 		}
-		else
+		if(value>0)
 		{
-			var a = Mathf.Lerp(image.color.a, 0, lerpTime);
-			Color color = new Color(1, 1, 1, a);
-			slider.value = a ;
+			value -= downSpeed;
+			Color color = new Color(1, 1, 1, value);
+			slider.value = value;
 			image.color = color;
 		}
+	
+	
 	}
 	public void ChangeColor()
 	{
+		
+		value += SpectrumKernel.spects[0] * weight;
 		Color color = image.color;
-		color.a = SpectrumKernel.spects[0]*weight;
+		color.a = value;
 		image.color = color;
-		slider.value = color.a;
-		if (color.a>=0.99f)
+		slider.value = value;
+		if (value>=0.99f)
 		{
 			SceneMang.instance.currentScene = SceneMang.Scene.MicPlayer;
 			SceneManager.LoadScene(SceneName.MicPlayer);

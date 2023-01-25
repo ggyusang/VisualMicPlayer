@@ -220,12 +220,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7218726938948250975, guid: a52ac0b737419dd4b804dfea52d808b7, type: 3}
       propertyPath: m_MaxValue
-      value: 0.99
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7218726939970750484, guid: a52ac0b737419dd4b804dfea52d808b7, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 80815edff9e44484dba2f57c727abee5, type: 3}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218726939970750484, guid: a52ac0b737419dd4b804dfea52d808b7, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218726939970750484, guid: a52ac0b737419dd4b804dfea52d808b7, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218726939970750484, guid: a52ac0b737419dd4b804dfea52d808b7, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7218726940206278204, guid: a52ac0b737419dd4b804dfea52d808b7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -233,7 +245,19 @@ PrefabInstance:
     - target: {fileID: 7218726940206278205, guid: a52ac0b737419dd4b804dfea52d808b7, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b524baaa4d2a453438215916e8e842db, type: 3}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218726940206278205, guid: a52ac0b737419dd4b804dfea52d808b7, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218726940206278205, guid: a52ac0b737419dd4b804dfea52d808b7, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218726940206278205, guid: a52ac0b737419dd4b804dfea52d808b7, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7218726938948250974, guid: a52ac0b737419dd4b804dfea52d808b7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a52ac0b737419dd4b804dfea52d808b7, type: 3}
@@ -393,7 +417,7 @@ GameObject:
   - component: {fileID: 150738993}
   - component: {fileID: 150738995}
   m_Layer: 5
-  m_Name: LerpSpeed
+  m_Name: DownSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1110,11 +1134,12 @@ MonoBehaviour:
   image: {fileID: 126400866}
   threshold: 0
   weight: 0
-  lerpTime: 0
+  downSpeed: 0
   slider: {fileID: 8022096}
   thresholdInput: {fileID: 364938821}
-  lerpTimeInput: {fileID: 150738995}
+  downSpeedInput: {fileID: 150738995}
   weightInput: {fileID: 1478266411}
+  value: 0.1
 --- !u!114 &504415433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1820,7 +1845,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LerpSpeed
+  m_text: DownSpeed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

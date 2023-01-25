@@ -12,13 +12,13 @@ public class VideoPly : MonoBehaviour
     {
 	
 		videoPlayer.loopPointReached += CheckOver;
-        if (SceneMang.instance.currentScene == SceneMang.Scene.MusicPlayer)
-        { StartCoroutine(WaitForSound()); }
+		if (SceneMang.instance.currentScene == SceneMang.Scene.MusicPlayer)
+		{ StartCoroutine(WaitForSound()); }
 
-    }
+	}
 
 
-    public IEnumerator WaitForSound()
+	public IEnumerator WaitForSound()
     {
         yield return new WaitUntil(() => musicAudioSource.isPlaying == false);
         SceneMang.instance.currentScene = SceneMang.Scene.IdleScene;
